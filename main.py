@@ -1,6 +1,5 @@
 from flask import Flask, request, jsonify
 import os
-from dotenv import load_dotenv
 from model import SiameseEfficientNet
 from milvus_helper import MilvusHelper
 from torchvision.io import read_image
@@ -12,8 +11,6 @@ from flask_cors import CORS
 app = Flask(__name__)
 CORS(app)
 
-# Load environment variables
-load_dotenv()
 
 # Initialize models and helpers
 compatibility_model = SiameseEfficientNet()
