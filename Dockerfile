@@ -1,20 +1,34 @@
-# Use an official Python runtime as a parent image
+# Use official Python image
 FROM python:3.11-slim
 
-# Set the working directory in the container
+# Install system dependencies for opencv and scikit-image
+RUN apt-get update && \
+    apt-get install -y --no-install-recommends \
+        build-essential \
+        libgl1-mesa-glx \
+        libglib2.0-0 \
+        libsm6 \
+        libxext6 \
+        libxrender-dev \
+        ffmpeg \
+        && rm -rf /var/lib/apt/lists/*
+
+# Set work directory
 WORKDIR /app
 
-# Copy the requirements file into the container
-COPY requirements.txt .
-
-# Install any needed packages specified in requirements.txt
+# Copy requirements and install Python dependencies
+COPY requirements.txt ./
 RUN pip install --no-cache-dir -r requirements.txt
 
-# Copy the rest of the application's code into the container
+# Copy the rest of the application code
 COPY . .
 
-# Make port 6000 available to the world outside this container
-EXPOSE 6000
+# Expose the port the app runs on
+EXPOSE 8080
 
-# Run main.py when the container launches
-CMD ["python", "main.py"] 
+# Set environment variables for Flask
+ENV FLASK_APP=main.py
+ENV FLASK_ENV=production
+
+# Start the app with gunicorn
+CMD ["gunicorn", "-b", "0.0.0.0:8080", "main:app", "--timeout", "120"] 

@@ -7,7 +7,10 @@ from torchvision.io import read_image
 import tempfile
 from PIL import Image
 import torchvision.transforms.functional as TF
+from flask_cors import CORS
+
 app = Flask(__name__)
+CORS(app)
 
 # Load environment variables
 load_dotenv()
@@ -198,4 +201,4 @@ def health_check():
 if __name__ == '__main__':
     # Ensure the collection exists
     print("Starting Flask application...")
-    app.run()
+    app.run(host='0.0.0.0', port=8080)
