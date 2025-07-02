@@ -2,10 +2,8 @@ from flask import Flask, request, jsonify
 import os
 from model import SiameseEfficientNet
 from milvus_helper import MilvusHelper
-from torchvision.io import read_image
 import tempfile
 from PIL import Image
-import torchvision.transforms.functional as TF
 from flask_cors import CORS
 
 app = Flask(__name__)
