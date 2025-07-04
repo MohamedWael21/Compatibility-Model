@@ -41,7 +41,7 @@ class MilvusHelper:
             print(f"No item found with id {item_id} in collection '{collection_name}'.")
             return None
 
-    def get_similar_items(self, collection_name, vector, category,  top_k=5):
+    def get_compatible_items(self, collection_name, vector, category,  top_k=5):
         """
         Searches for the most similar items to an input vector, filtered by category.
 
