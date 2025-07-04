@@ -55,7 +55,7 @@ def get_recommendations(item_id):
         vector, category = result
         
         # Get similar items in the same category
-        similar_items = milvus_helper.get_compatible_items(
+        compatible_items = milvus_helper.get_compatible_items(
             collection_name=COLLECTION_NAME,
             vector=vector,
             category=category,
@@ -63,7 +63,7 @@ def get_recommendations(item_id):
         )
         
         return jsonify({
-            'recommendations': similar_items
+            'recommendations': compatible_items
         })
         
     except Exception as e:
