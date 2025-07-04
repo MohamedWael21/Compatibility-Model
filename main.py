@@ -54,7 +54,7 @@ def get_recommendations(item_id):
         
         vector, category = result
         
-        # Get similar items in the same category
+        # Get compatible items in different category
         compatible_items = milvus_helper.get_compatible_items(
             collection_name=COLLECTION_NAME,
             vector=vector,
